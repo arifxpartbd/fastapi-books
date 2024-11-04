@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 
 app = FastAPI()
 
@@ -23,5 +23,9 @@ async def searchbook(title: str):
         if book.get('title').casefold() == title.casefold():
             return book  
         else:
-            return {'message': 'no data found'}  
+            return {'message': 'no data found'} 
+
+@app.post("/books/create")
+async def createBook(newbook = Body()):
+    BOOKS.append(newbook)         
 
