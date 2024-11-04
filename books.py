@@ -40,3 +40,14 @@ async def updateBook(updateBook = Body()):
 
     else:
             return {'message': 'updated failed'}  
+    
+@app.delete("/books/delete")
+async def deleteBook(title: str):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get('title').casefold() == title.casefold():
+            BOOKS.pop(i)  # Remove the book from the list
+            return {'message': 'book deleted'}
+
+    # If no matching book is found
+    return {'message': 'delete failed'}
+   
