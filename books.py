@@ -5,7 +5,7 @@ app = FastAPI()
 BOOKS = [
     {'title': 'title1', 'price': 500, 'auth': 'arif'},
     {'title': 'title2', 'price': 1500, 'auth': 'asif'},
-    {'title': 'title3', 'price': 5100, 'auth': 'arif khan'},
+    {'title': 'title3', 'price': 5100, 'auth': 'arif'},
     {'title': 'title4', 'price': 5000, 'auth': 'rupu'}
 ]
 
@@ -16,6 +16,15 @@ async def getbook():
 @app.get('/books')
 async def booklist():
     return BOOKS
+
+@app.get('/booklistbyauth/{nameofauth}')
+async def booklistbyauth(nameofauth: str):
+    returnBooks = []
+    for book in BOOKS:
+        if book.get('auth').casefold() == nameofauth.casefold():
+            returnBooks.append(book)
+
+    return returnBooks        
 
 @app.get('/books/{title}')
 async def searchbook(title: str):
