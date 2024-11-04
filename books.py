@@ -30,3 +30,13 @@ async def createBook(newbook = Body()):
     BOOKS.append(newbook)
     return {"message":"new book created", "data": newbook}        
 
+@app.put("/books/update")
+async def updateBook(updateBook = Body()):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get('title').casefold() == updateBook.get('title').casefold():
+            BOOKS[i] = updateBook
+
+            return {'message':'book updated', 'data': updateBook} 
+
+    else:
+            return {'message': 'updated failed'}  
