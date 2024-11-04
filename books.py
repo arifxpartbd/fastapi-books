@@ -27,5 +27,6 @@ async def searchbook(title: str):
 
 @app.post("/books/create")
 async def createBook(newbook = Body()):
-    BOOKS.append(newbook)         
+    BOOKS.append(newbook)
+    return {"message":"new book created", "data": newbook}        
 
