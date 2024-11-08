@@ -27,7 +27,8 @@ class BookRequest(BaseModel):
     description: str = Field(min_length=10, max_length=100)
     rating: int = Field(gt=0, lt=6)
 
-    model_config = {
+    class Config:
+        model_config = {
         "json_schema_extra" :{
             "example":{
                 "title":"a new book title",
@@ -74,3 +75,10 @@ async def bookrequest(requestbook: BookRequest):
 def findBookId(books: book):
     books.id = 1 if len(BOOKS) == 0 else BOOKS[-1].id + 1
     return books
+
+@app.put("/books/update")
+async def update_book(book: BookRequest):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].id == book.id:
+            BOOKS[i] = book
+ 
