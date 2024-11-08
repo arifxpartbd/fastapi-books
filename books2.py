@@ -42,7 +42,7 @@ class BookRequest(BaseModel):
 BOOKS = [
     book(1, 'computer science and eng', 'arif','very nice book', 5),
     book(2, 'computer science and eng 2', 'asif','very nice book', 5),
-    book(3, 'computer science and eng 3', 'lamia','very nice book', 5),
+    book(3, 'computer science and eng 3', 'lamia','very nice book', 2),
     
 ]
 
@@ -55,6 +55,14 @@ async def bookById(book_id:int):
     for book in BOOKS:
         if book.id == book_id:
             return book
+        
+@app.get("/books/")
+async def bookByRating(rating: int):
+    bookList = []
+    for ragintbook in BOOKS:
+        if ragintbook.rating == rating:
+            bookList.append(ragintbook)   
+    return bookList  
 
 
 @app.post("/createbook")
