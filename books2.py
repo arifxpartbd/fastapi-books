@@ -2,7 +2,28 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-BOOKS = []
+class book:
+    id: int
+    title: str
+    author: str
+    description: str
+    rating: int
+    
+
+    def __init__(self, id, title, author, description, rating):
+        self.id = id
+        self.title = title
+        self.author = author
+        self.description = description
+        self.rating = rating
+
+
+BOOKS = [
+    book(1, 'computer science and eng', 'arif','very nice book', 5),
+    book(2, 'computer science and eng 2', 'asif','very nice book', 5),
+    book(3, 'computer science and eng 3', 'lamia','very nice book', 5),
+    
+]
 
 @app.get("/")
 async def books():
