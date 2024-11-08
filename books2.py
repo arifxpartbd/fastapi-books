@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import Body, FastAPI
 
 app = FastAPI()
 
@@ -28,3 +28,9 @@ BOOKS = [
 @app.get("/")
 async def books():
     return BOOKS
+
+
+@app.post("/createbook")
+async def bookrequest(requestbook = Body()):
+    BOOKS.append(requestbook)
+    return requestbook
