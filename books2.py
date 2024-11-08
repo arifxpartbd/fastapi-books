@@ -27,8 +27,7 @@ class BookRequest(BaseModel):
     description: str = Field(min_length=10, max_length=100)
     rating: int = Field(gt=0, lt=6)
 
-    class Config:
-        model_config = {
+    model_config = {
         "json_schema_extra" :{
             "example":{
                 "title":"a new book title",
@@ -38,6 +37,7 @@ class BookRequest(BaseModel):
             }
         }
     }
+
 
 
 BOOKS = [
@@ -81,4 +81,13 @@ async def update_book(book: BookRequest):
     for i in range(len(BOOKS)):
         if BOOKS[i].id == book.id:
             BOOKS[i] = book
+
+
+@app.delete("/books/{book_id}")
+async def deletebook(book_id: int):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].id == book_id:
+            BOOKS.pop(i)
+            break    
+    
  
