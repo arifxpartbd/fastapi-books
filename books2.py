@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI()
@@ -56,6 +56,8 @@ async def bookById(book_id:int):
     for book in BOOKS:
         if book.id == book_id:
             return book
+
+    raise HTTPException(status_code=404,detail="Item Not Found")        
         
 @app.get("/books/")
 async def bookByRating(rating: int):
