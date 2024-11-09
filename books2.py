@@ -80,9 +80,13 @@ def findBookId(books: book):
 
 @app.put("/books/update")
 async def update_book(book: BookRequest):
+    bookChanged = False
     for i in range(len(BOOKS)):
         if BOOKS[i].id == book.id:
             BOOKS[i] = book
+            bookChanged = True
+    if not bookChanged:
+        raise HTTPException(status_code=404, detail="Updait Failed")        
 
 
 @app.delete("/books/{book_id}")
